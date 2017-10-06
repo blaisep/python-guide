@@ -1,42 +1,72 @@
-Getting Started
----------------
+Getting Started with Python
+---------------------------
 
-This part of the guide focuses on setting up your Python environment.
+New to Python? Let's properly setup up your Python environment:
 
 .. toctree::
    :maxdepth: 2
 
    starting/which-python
 
-- Properly Install Python
+- Properly Install Python on your system:
 
  .. toctree::
     :maxdepth: 1
 
+    starting/installation
+    starting/install3/osx
+    starting/install3/win
+    starting/install3/linux
     starting/install/osx
     starting/install/win
     starting/install/linux
 
 
+- Using Virtualenvs with Pipenv:
 
-Writing Great Code
-------------------
+.. toctree::
+    :maxdepth: 2
 
-This part of the guide focuses on best practices for writing Python code.
+    dev/virtualenvs
+
+
+Python Development Environments
+-------------------------------
+
+This part of the guide focus on the Python development environment,
+and the best-practice tools that are available for writing Python code.
+
+.. toctree::
+   :maxdepth: 2
+
+   dev/env
+   dev/virtualenvs
+   dev/pip-virtualenv
+
+
+
+
+Writing Great Python Code
+-------------------------
+
+This part of the guide focuses on the best-practices for writing Python code.
 
 .. toctree::
    :maxdepth: 2
 
    writing/structure
    writing/style
+   writing/reading
    writing/documentation
    writing/tests
+   writing/logging
+   writing/gotchas
    writing/license
 
 
 
-Scenario Guide
---------------
+Scenario Guide for Python Applications
+--------------------------------------
 
 This part of the guide focuses on tool and module advice based on
 different scenarios.
@@ -46,19 +76,26 @@ different scenarios.
 
    scenarios/client
    scenarios/web
+   scenarios/scrape
    scenarios/cli
    scenarios/gui
    scenarios/db
+   scenarios/network
    scenarios/admin
    scenarios/ci
    scenarios/speed
    scenarios/scientific
    scenarios/imaging
+   scenarios/serialization
    scenarios/xml
+   scenarios/json
+   scenarios/crypto
+   scenarios/ml
+   scenarios/clibs
 
 
-Shipping Great Code
--------------------
+Shipping Great Python Code
+--------------------------
 
 This part of the guide focuses on deploying your Python code.
 
@@ -67,18 +104,6 @@ This part of the guide focuses on deploying your Python code.
 
    shipping/packaging
    shipping/freezing
-
-
-Development Environment
------------------------
-
-.. toctree::
-   :maxdepth: 2
-
-   dev/env
-   dev/virtualenvs
-
-
 
 
 Additional Notes
@@ -96,12 +121,15 @@ background information about Python, then focuses on next steps.
    intro/documentation
    intro/news
 
-
+.. note::
+   Notes defined within all diatonic and chromatic musical scales have been
+   intentionally excluded from this list of additional notes. Additionally,
+   this note.
 
 
 --------------------------------------
 
-Contibution notes and legal information are here (for those interested).
+Contribution notes and legal information (for those interested).
 
 .. toctree::
    :maxdepth: 2

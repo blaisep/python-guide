@@ -1,17 +1,21 @@
+.. _code_style:
+
 Code Style
 ==========
 
-If you ask Python programmers what they like most in Python, they will
-often say its high readability.  Indeed, a high level of readability
-is at the heart of the design of the Python language, following the
-recognised fact that code is read much more often than it is written.
+.. image:: https://farm5.staticflickr.com/4223/33907150054_5ee79e8940_k_d.jpg
 
-One reason for Python code to be easily read and understood is its relatively
+If you ask Python programmers what they like most about Python, they will
+often cite its high readability.  Indeed, a high level of readability
+is at the heart of the design of the Python language, following the
+recognized fact that code is read much more often than it is written.
+
+One reason for the high readability of Python code is its relatively
 complete set of Code Style guidelines and "Pythonic" idioms.
 
-Moreover, when a veteran Python developer (a Pythonista) point to some
-parts of a code and say it is not "Pythonic", it usually means that these lines
-of code do not follow the common guidelines and fail to express the intent in
+When a veteran Python developer (a Pythonista) calls portions of
+code not "Pythonic", they usually mean that these lines
+of code do not follow the common guidelines and fail to express its intent in
 what is considered the best (hear: most readable) way.
 
 On some border cases, no best way has been agreed upon on how to express
@@ -51,7 +55,7 @@ One statement per line
 
 While some compound statements such as list comprehensions are
 allowed and appreciated for their brevity and their expressiveness,
-it is bad practice to have two disjoint statements on the same line.
+it is bad practice to have two disjointed statements on the same line of code.
 
 **Bad**
 
@@ -84,49 +88,51 @@ Function arguments
 
 Arguments can be passed to functions in four different ways.
 
-**Positional arguments** are mandatory and have no default values. They are the
-simplest form of arguments and they can be used for the few function arguments
-that are fully part of the functions meaning and their order is natural. For
-instance, in ``send(message, recipient)`` or ``point(x, y)`` the user of the
-function has no difficulty to remember that those two function require two
-arguments, and in which order.
+1. **Positional arguments** are mandatory and have no default values. They are
+   the simplest form of arguments and they can be used for the few function
+   arguments that are fully part of the function's meaning and their order is
+   natural. For instance, in ``send(message, recipient)`` or ``point(x, y)``
+   the user of the function has no difficulty remembering that those two
+   functions require two arguments, and in which order.
 
-In those two cases, it is possible to use argument names when calling the functions
-and, doing so, it is possible to switch the order of arguments, calling for instance
-``send(recipient='World', message='Hello')`` and ``point(y=2, x=1)`` but this
-reduce readability and is unnecessarily verbose, compared to the more straightforward
-calls to ``send('Hello', 'World')`` and ``point(1, 2)``.
+In those two cases, it is possible to use argument names when calling the
+functions and, doing so, it is possible to switch the order of arguments,
+calling for instance ``send(recipient='World', message='Hello')`` and
+``point(y=2, x=1)`` but this reduces readability and is unnecessarily verbose,
+compared to the more straightforward calls to ``send('Hello', 'World')`` and
+``point(1, 2)``.
 
-**Keyword arguments** are not mandatory and have default values. They are often
-used for optional parameters sent to the function. When a function has more than
-two or three positional parameters, its signature will be more difficult to remember
-and using keyword argument with default values is helpful. For instance, a more
-complete ``send`` function could be defined as ``send(message, to, cc=None, bcc=None)``.
-Here ``cc`` and ``bcc`` are optional, and evaluate to ``None`` when the are not
-passed another value.
+2. **Keyword arguments** are not mandatory and have default values. They are
+   often used for optional parameters sent to the function. When a function has
+   more than two or three positional parameters, its signature is more difficult
+   to remember and using keyword arguments with default values is helpful. For
+   instance, a more complete ``send`` function could be defined as
+   ``send(message, to, cc=None, bcc=None)``. Here ``cc`` and ``bcc`` are
+   optional, and evaluate to ``None`` when they are not passed another value.
 
-Calling a function with keyword arguments can be done in multiple ways in Python,
-for example it is possible to follow the order of arguments in the definition without
-explicitly naming the arguments, like in ``send('Hello', 'World', 'Cthulhu`, 'God')``,
-sending a blank carbon copy to God. It would also be possible to name arguments in
-another order, like in ``send('Hello again', 'World', bcc='God', cc='Cthulhu')``.
-Those two possibilities are better avoided without any strong reason to not
-follow the syntax that is the closest to the function definition: ``send('Hello',
-'World', cc='Cthulhu', bcc='God')``.
+Calling a function with keyword arguments can be done in multiple ways in
+Python, for example it is possible to follow the order of arguments in the
+definition without explicitly naming the arguments, like in
+``send('Hello', 'World', 'Cthulhu', 'God')``, sending a blind carbon copy to
+God. It would also be possible to name arguments in another order, like in
+``send('Hello again', 'World', bcc='God', cc='Cthulhu')``. Those two
+possibilities are better avoided without any strong reason to not follow the
+syntax that is the closest to the function definition:
+``send('Hello', 'World', cc='Cthulhu', bcc='God')``.
 
-As a side note, following YAGNI_ principle, it is often harder to remove an
-optional argument (and its logic inside the function) that was added "just in
-case" and is seemingly never used, than to add a new optional argument and its
-logic when needed.
+As a side note, following `YAGNI <http://en.wikipedia.org/wiki/You_ain't_gonna_need_it>`_
+principle, it is often harder to remove an optional argument (and its logic
+inside the function) that was added "just in case" and is seemingly never used,
+than to add a new optional argument and its logic when needed.
 
-The **arbitrary argument list** is the third way to pass arguments to a
-function.  If the function intention is better expressed by a signature with an
-extensible number of positional arguments, it can be defined with the ``*args``
-constructs.  In the function body, ``args`` will be a tuple of all the
-remaining positional arguments. For example, ``send(message, *args)`` can be
-called with each recipient as an argument: ``send('Hello', 'God', 'Mom',
-'Cthulhu')``, and in the function body ``args`` will be equal to ``('God',
-'Mom', 'Cthulhu')``.
+3. The **arbitrary argument list** is the third way to pass arguments to a
+   function. If the function intention is better expressed by a signature with
+   an extensible number of positional arguments, it can be defined with the
+   ``*args`` constructs. In the function body, ``args`` will be a tuple of all
+   the remaining positional arguments. For example, ``send(message, *args)``
+   can be called with each recipient as an argument:``send('Hello', 'God',
+   'Mom', 'Cthulhu')``, and in the function body ``args`` will be equal to
+   ``('God', 'Mom', 'Cthulhu')``.
 
 However, this construct has some drawbacks and should be used with caution. If a
 function receives a list of arguments of the same nature, it is often more
@@ -137,11 +143,12 @@ it explicitly: ``send(message, recipients)`` and call it with ``send('Hello',
 the recipient list as a list beforehand, and it opens the possibility to pass
 any sequence, including iterators, that cannot be unpacked as other sequences.
 
-The **arbitrary keyword argument dictionary** is the last way to pass arguments
-to functions. If the function requires an undetermined series of named
-arguments, it is possible to used the ``**kwargs`` construct. In the function
-body, ``kwargs`` will be a dictionary of all the passed named arguments that
-have not been caught be other keyword argument in the function signature.
+4. The **arbitrary keyword argument dictionary** is the last way to pass
+   arguments to functions. If the function requires an undetermined series of
+   named arguments, it is possible to use the ``**kwargs`` construct. In the
+   function body, ``kwargs`` will be a dictionary of all the passed named
+   arguments that have not been caught by other keyword arguments in the
+   function signature.
 
 The same caution as in the case of *arbitrary argument list* is necessary, for
 similar reasons: these powerful techniques are to be used when there is a
@@ -151,91 +158,93 @@ clearer construct is sufficient to express the function's intention.
 It is up to the programmer writing the function to determine which arguments
 are positional arguments and which are optional keyword arguments, and to
 decide whether to use the advanced techniques of arbitrary argument passing. If
-the advices above are followed wisely, it is possible and enjoyable to write
+the advice above is followed wisely, it is possible and enjoyable to write
 Python functions that are:
 
 * easy to read (the name and arguments need no explanations)
 
-* easy to change (adding a new keyword argument does not break other parts of the
-  code)
+* easy to change (adding a new keyword argument does not break other parts of
+  the code)
 
 Avoid the magical wand
 ~~~~~~~~~~~~~~~~~~~~~~
 
 A powerful tool for hackers, Python comes with a very rich set of hooks and
-tools allowing to do almost any kind of tricky tricks. For instance, it is
-possible to change how objects are created and instantiated, it is possible to
-change how the Python interpreter imports modules, it is even possible (and
-recommended if needed) to embed C routines in Python.
+tools allowing you to do almost any kind of tricky tricks. For instance, it is
+possible to do each of the following:
+
+* change how objects are created and instantiated
+
+* change how the Python interpreter imports modules
+
+* it is even possible (and recommended if needed) to embed C routines in Python.
 
 However, all these options have many drawbacks and it is always better to use
 the most straightforward way to achieve your goal. The main drawback is that
-readability suffers deeply from them. Many code analysis tools, such as pylint
-or pyflakes, will be unable to parse this "magic" code.
+readability suffers greatly when using these constructs. Many code analysis
+tools, such as pylint or pyflakes, will be unable to parse this "magic" code.
 
 We consider that a Python developer should know about these nearly infinite
-possibilities, because it grows the confidence that no hard-wall will be on the
-way.  However, knowing how to use them and particularly when **not** to use
-them is the most important.
+possibilities, because it instills confidence that no impassable problem will
+be on the way. However, knowing how and particularly when **not** to use
+them is very important.
 
-Like a Kungfu master, a Pythonista knows how to kill with a single finger, and
-never to do it.
+Like a kung fu master, a Pythonista knows how to kill with a single finger, and
+never to actually do it.
 
-We are all consenting adults
+We are all responsible users
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 As seen above, Python allows many tricks, and some of them are potentially
 dangerous. A good example is that any client code can override an object's
 properties and methods: there is no "private" keyword in Python. This
 philosophy, very different from highly defensive languages like Java, which
-give a lot of mechanism to prevent any misuse, is expressed by the saying: "We
-are consenting adults".
+give a lot of mechanisms to prevent any misuse, is expressed by the saying: "We
+are all responsible users".
 
 This doesn't mean that, for example, no properties are considered private, and
-that no proper encapsulation is possible in Python. But, instead of relying on
-concrete walls erected by the developers between their code and other's, the
-Python community prefers to rely on a set of convention indicating that these
+that no proper encapsulation is possible in Python. Rather, instead of relying
+on concrete walls erected by the developers between their code and other's, the
+Python community prefers to rely on a set of conventions indicating that these
 elements should not be accessed directly.
 
 The main convention for private properties and implementation details is to
 prefix all "internals" with an underscore. If the client code breaks this rule
-and access to these marked elements, any misbehavior or problems encountered if
+and accesses these marked elements, any misbehavior or problems encountered if
 the code is modified is the responsibility of the client code.
 
 Using this convention generously is encouraged: any method or property that is
 not intended to be used by client code should be prefixed with an underscore.
-This will guarantee a better separation of duties and easier modifications of
-existing code, and it will always be possible to publicize a private property,
-while privatising a public property might be a much harder operation.
+This will guarantee a better separation of duties and easier modification of
+existing code; it will always be possible to publicize a private property,
+but making a public property private might be a much harder operation.
 
 Returning values
 ~~~~~~~~~~~~~~~~
 
-Python functions return a value, and you can control this return value with the
-return statement for all of them but the object constructor `__init__()` and the
-special case of generators.
+When a function grows in complexity it is not uncommon to use multiple return
+statements inside the function's body. However, in order to keep a clear intent
+and a sustainable readability level, it is preferable to avoid returning
+meaningful values from many output points in the body.
 
-When a function grows in complexity is not uncommon to use multiple return statements
-inside the function's body. However, in order to keep a clear intent and a sustainable
-readability level, it is preferable to avoid returning meaningful values from many
-output point in the body.
+There are two main cases for returning values in a function: the result of the
+function return when it has been processed normally, and the error cases that
+indicate a wrong input parameter or any other reason for the function to not be
+able to complete its computation or task.
 
-There are two main cases for returning values in a function: The result of the function
-return when it has been processed normally, and the error cases that indicate a wrong
-input parameter or any other reason for the function to not be able to complete its
-computation or task.
+If you do not wish to raise exceptions for the second case, then returning a
+value, such as None or False, indicating that the function could not perform
+correctly might be needed. In this case, it is better to return as early as the
+incorrect context has been detected. It will help to flatten the structure of
+the function: all the code after the return-because-of-error statement can
+assume the condition is met to further compute the function's main result.
+Having multiple such return statements is often necessary.
 
-If you do not wish to raise exceptions for the second case, then returning a value, such
-as None or False, indicating that the function could not perform correctly might be needed. In this
-case, it is better to return as early as the incorrect context has been detected. It will
-help to flatten the structure of the function: all the code after the return-because-of-error
-statement can assume the condition is met to further compute the function's main result.
-Having multiple such return statement is often necessary.
-
-However, when a function has multiple main exit points for its normal course, it becomes
-difficult to debug the returned result, and it may be preferable to keep a single exit
-point. This will also help factoring out some code paths, and the multiple exit point
-is a probable indication that such a refactoring is needed.
+However, when a function has multiple main exit points for its normal course,
+it becomes difficult to debug the returned result, so it may be preferable to
+keep a single exit point. This will also help factoring out some code paths,
+and the multiple exit points are a probable indication that such a refactoring
+is needed.
 
 .. code-block:: python
 
@@ -254,7 +263,17 @@ is a probable indication that such a refactoring is needed.
 Idioms
 ------
 
+A programming idiom, put simply, is a *way* to write code. The notion of
+programming idioms is discussed amply at `c2 <http://c2.com/cgi/wiki?ProgrammingIdiom>`_
+and at `Stack Overflow <http://stackoverflow.com/questions/302459/what-is-a-programming-idiom>`_.
+
 Idiomatic Python code is often referred to as being *Pythonic*.
+
+Although there usually is one --- and preferably only one --- obvious way to do
+it; *the* way to write idiomatic Python code can be non-obvious to Python
+beginners. So, good idioms must be consciously acquired.
+
+Some common Python idioms follow:
 
 .. _unpacking-ref:
 
@@ -262,14 +281,15 @@ Unpacking
 ~~~~~~~~~
 
 If you know the length of a list or tuple, you can assign names to its
-elements with unpacking:
+elements with unpacking. For example, since ``enumerate()`` will provide
+a tuple of two elements for each item in list:
 
 .. code-block:: python
 
     for index, item in enumerate(some_list):
         # do something with index and item
 
-You can use this to swap variables, as well:
+You can use this to swap variables as well:
 
 .. code-block:: python
 
@@ -281,6 +301,16 @@ Nested unpacking works too:
 
    a, (b, c) = 1, (2, 3)
 
+In Python 3, a new method of extended unpacking was introduced by
+:pep:`3132`:
+
+.. code-block:: python
+
+   a, *rest = [1, 2, 3]
+   # a = 1, rest = [2, 3]
+   a, *middle, c = [1, 2, 3, 4]
+   # a = 1, middle = [2, 3], c = 4
+
 Create an ignored variable
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -290,7 +320,7 @@ will not need that variable, use ``__``:
 .. code-block:: python
 
     filename = 'foobar.txt'
-    basename, __, ext = filename.rpartition()
+    basename, __, ext = filename.rpartition('.')
 
 .. note::
 
@@ -321,39 +351,78 @@ Instead, use a list comprehension:
 
 .. code-block:: python
 
-    four_lists = [[] for _ in xrange(4)]
+    four_lists = [[] for __ in xrange(4)]
 
+Note: Use range() instead of xrange() in Python 3
 
-A common idiom for creating strings is to use `join <http://docs.python.org/library/string.html#string.join>`_ on an empty string.::
+Create a string from a list
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+A common idiom for creating strings is to use :py:meth:`str.join` on an empty
+string.
+
+.. code-block:: python
 
     letters = ['s', 'p', 'a', 'm']
     word = ''.join(letters)
 
-This will set the value of the variable *word* to 'spam'. This idiom can be applied to lists and tuples.
+This will set the value of the variable *word* to 'spam'. This idiom can be
+applied to lists and tuples.
 
-Sometimes we need to search through a collection of things. Let's look at two options: lists and dictionaries.
+Searching for an item in a collection
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Take the following code for example::
+Sometimes we need to search through a collection of things. Let's look at two
+options: lists and sets.
 
-    d = {'s': [], 'p': [], 'a': [], 'm': []}
+Take the following code for example:
+
+.. code-block:: python
+
+    s = set(['s', 'p', 'a', 'm'])
     l = ['s', 'p', 'a', 'm']
 
-    def lookup_dict(d):
-        return 's' in d
+    def lookup_set(s):
+        return 's' in s
 
     def lookup_list(l):
         return 's' in l
 
-Even though both functions look identical, because *lookup_dict* is utilizing the fact that dictionaries in python are hashtables, the lookup performance between the two is very different.
-Python will have to go through each item in the list to find a matching case, which is time consuming. By analysing the hash of the dictionary finding keys in the dict can be done very quickly.
-For more information see this `StackOverflow <http://stackoverflow.com/questions/513882/python-list-vs-dict-for-look-up-table>`_ page.
+Even though both functions look identical, because *lookup_set* is utilizing
+the fact that sets in Python are hashtables, the lookup performance
+between the two is very different. To determine whether an item is in a list,
+Python will have to go through each item until it finds a matching item.
+This is time consuming, especially for long lists. In a set, on the other
+hand, the hash of the item will tell Python where in the set to look for
+a matching item. As a result, the search can be done quickly, even if the
+set is large. Searching in dictionaries works the same way. For
+more information see this
+`StackOverflow <http://stackoverflow.com/questions/513882/python-list-vs-dict-for-look-up-table>`_
+page. For detailed information on the amount of time various common operations
+take on each of these data structures, see
+`this page <https://wiki.python.org/moin/TimeComplexity?>`_.
+
+Because of these differences in performance, it is often a good idea to use
+sets or dictionaries instead of lists in cases where:
+
+* The collection will contain a large number of items
+
+* You will be repeatedly searching for items in the collection
+
+* You do not have duplicate items.
+
+For small collections, or collections which you will not frequently be
+searching through, the additional time and memory required to set up the
+hashtable will often be greater than the time saved by the improved search
+speed.
+
 
 Zen of Python
 -------------
 
-Also known as PEP 20, the guiding principles for Python's design.
+Also known as :pep:`20`, the guiding principles for Python's design.
 
-::
+.. code-block:: pycon
 
     >>> import this
     The Zen of Python, by Tim Peters
@@ -378,34 +447,37 @@ Also known as PEP 20, the guiding principles for Python's design.
     If the implementation is easy to explain, it may be a good idea.
     Namespaces are one honking great idea -- let's do more of those!
 
-For some examples of good Python style, see `this Stack Overflow question
-<http://stackoverflow.com/questions/228181/the-zen-of-python>`_ or `these
-slides from a Python user group
-<http://artifex.org/~hblanks/talks/2011/pep20_by_example.pdf>`_.
+For some examples of good Python style, see `these slides from a Python user
+group <http://artifex.org/~hblanks/talks/2011/pep20_by_example.pdf>`_.
 
 PEP 8
 -----
 
-PEP 8 is the de-facto code style guide for Python.
+:pep:`8` is the de-facto code style guide for Python. A high quality,
+easy-to-read version of PEP 8 is also available at `pep8.org <http://pep8.org/>`_.
 
-    `PEP 8 <http://www.python.org/dev/peps/pep-0008/>`_
+This is highly recommended reading. The entire Python community does their
+best to adhere to the guidelines laid out within this document. Some project
+may sway from it from time to time, while others may
+`amend its recommendations <http://docs.python-requests.org/en/master/dev/contributing/#kenneth-reitz-s-code-style>`_.
 
-Conforming your Python code to PEP 8 is generally a good idea and helps make
-code more consistent when working on projects with other developers. There
-exists a command-line program, `pep8 <https://github.com/jcrocholl/pep8>`_,
-that can check your code for conformance. Install it by running the following
-command in your Terminal:
+That being said, conforming your Python code to PEP 8 is generally a good idea
+and helps make code more consistent when working on projects with other
+developers. There is a command-line program, `pycodestyle <https://github.com/PyCQA/pycodestyle>`_
+(previously known as ``pep8``), that can check your code for conformance.
+Install it by running the following command in your terminal:
 
-::
 
-    $ pip install pep8
+.. code-block:: console
+
+    $ pip install pycodestyle
 
 
 Then run it on a file or series of files to get a report of any violations.
 
-::
+.. code-block:: console
 
-    $ pep8 optparse.py
+    $ pycodestyle optparse.py
     optparse.py:69:11: E401 multiple imports on one line
     optparse.py:77:1: E302 expected 2 blank lines, found 1
     optparse.py:88:5: E301 expected 1 blank line, found 0
@@ -415,13 +487,30 @@ Then run it on a file or series of files to get a report of any violations.
     optparse.py:472:29: E221 multiple spaces before operator
     optparse.py:544:21: W601 .has_key() is deprecated, use 'in'
 
+The program `autopep8 <https://pypi.python.org/pypi/autopep8/>`_ can be used to
+automatically reformat code in the PEP 8 style. Install the program with:
+
+.. code-block:: console
+
+    $ pip install autopep8
+
+Use it to format a file in-place with:
+
+.. code-block:: console
+
+    $ autopep8 --in-place optparse.py
+
+Excluding the ``--in-place`` flag will cause the program to output the modified
+code directly to the console for review. The ``--aggressive`` flag will perform
+more substantial changes and can be applied multiple times for greater effect.
+
 Conventions
-:::::::::::
+----------------
 
 Here are some conventions you should follow to make your code easier to read.
 
 Check if variable equals a constant
------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 You don't need to explicitly compare a value to True, or None, or 0 - you can
 just add it to the if statement. See `Truth Value Testing
@@ -450,15 +539,15 @@ list of what is considered false.
     if not attr:
         print 'attr is falsey!'
 
-    # or, since None is considered false, explicity check for it
+    # or, since None is considered false, explicitly check for it
     if attr is None:
         print 'attr is None!'
 
 Access a Dictionary Element
----------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Don't use the ``has_key`` function. Instead use ``x in d`` syntax, or pass
-a default argument to ``get``.
+Don't use the :py:meth:`dict.has_key` method. Instead, use ``x in d`` syntax,
+or pass a default argument to :py:meth:`dict.get`.
 
 **Bad**:
 
@@ -484,14 +573,13 @@ a default argument to ``get``.
         print d['hello']
 
 Short Ways to Manipulate Lists
-------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 `List comprehensions
 <http://docs.python.org/tutorial/datastructures.html#list-comprehensions>`_
-provide a powerful, concise way to work with lists. Also, the `map
-<http://docs.python.org/library/functions.html#map>`_ and `filter
-<http://docs.python.org/library/functions.html#filter>`_ functions can perform
-operations on lists using a different concise syntax.
+provide a powerful, concise way to work with lists. Also, the :py:func:`map` and
+:py:func:`filter` functions can perform operations on lists using a different,
+more concise syntax.
 
 **Bad**:
 
@@ -508,7 +596,9 @@ operations on lists using a different concise syntax.
 
 .. code-block:: python
 
+    a = [3, 4, 5]
     b = [i for i in a if i > 4]
+    # Or:
     b = filter(lambda x: x > 4, a)
 
 **Bad**:
@@ -517,10 +607,8 @@ operations on lists using a different concise syntax.
 
     # Add three to all list members.
     a = [3, 4, 5]
-    count = 0
-    for i in a:
-        a[count] = i + 3
-        count = count + 1
+    for i in range(len(a)):
+        a[i] += 3
 
 **Good**:
 
@@ -531,24 +619,23 @@ operations on lists using a different concise syntax.
     # Or:
     a = map(lambda i: i + 3, a)
 
-Use `enumerate <http://docs.python.org/library/functions.html#enumerate>`_ to
-keep a count of your place in the list.
+Use :py:func:`enumerate` keep a count of your place in the list.
 
 .. code-block:: python
 
+    a = [3, 4, 5]
     for i, item in enumerate(a):
-        print i + ", " + item
+        print i, item
     # prints
-    # 0, 3
-    # 1, 4
-    # 2, 5
+    # 0 3
+    # 1 4
+    # 2 5
 
-The ``enumerate`` function has better readability than handling a counter
-manually. Moreover,
-it is better optimized for iterators.
+The :py:func:`enumerate` function has better readability than handling a
+counter manually. Moreover, it is better optimized for iterators.
 
 Read From a File
-----------------
+~~~~~~~~~~~~~~~~
 
 Use the ``with open`` syntax to read from files. This will automatically close
 files for you.
@@ -571,48 +658,21 @@ files for you.
             print line
 
 The ``with`` statement is better because it will ensure you always close the
-file, even if an exception is raised.
-
-Returning Multiple Values from a Function
------------------------------------------
-
-Python supports returning multiple values from a function as a comma-separated
-list, so you don't have to create an object or dictionary and pack multiple
-values in before you return
-
-**Bad**:
-
-.. code-block:: python
-
-    def math_func(a):
-        return {'square': a ** 2, 'cube': a ** 3}
-
-    d = math_func(3)
-    s = d['square']
-    c = d['cube']
-
-**Good**:
-
-.. code-block:: python
-
-    def math_func(a):
-        return a ** 2, a ** 3
-
-    square, cube = math_func(3)
+file, even if an exception is raised inside the ``with`` block.
 
 Line Continuations
 ~~~~~~~~~~~~~~~~~~
 
 When a logical line of code is longer than the accepted limit, you need to
-split it over multiple physical lines. Python interpreter will join consecutive
-lines if the last character of the line is a backslash. This is helpful
-sometime but is preferably avoided, because of its fragility: a white space
-added to the end of the line, after the backslash, will break the code and may
-have unexpected results.
+split it over multiple physical lines. The Python interpreter will join
+consecutive lines if the last character of the line is a backslash. This is
+helpful in some cases, but should usually be avoided because of its fragility:
+a white space added to the end of the line, after the backslash, will break the
+code and may have unexpected results.
 
-A preferred solution is to use parenthesis around your elements. Left with an
+A better solution is to use parentheses around your elements. Left with an
 unclosed parenthesis on an end-of-line the Python interpreter will join the
-next line until the parenthesis is closed. The same behavior holds for curly
+next line until the parentheses are closed. The same behavior holds for curly
 and square braces.
 
 **Bad**:
@@ -639,6 +699,6 @@ and square braces.
     from some.deep.module.inside.a.module import (
         a_nice_function, another_nice_function, yet_another_nice_function)
 
-However, more often than not having to split long logical line is a sign that
+However, more often than not, having to split a long logical line is a sign that
 you are trying to do too many things at the same time, which may hinder
 readability.
